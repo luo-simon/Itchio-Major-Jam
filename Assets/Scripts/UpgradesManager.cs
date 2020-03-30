@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class UpgradesManager : MonoBehaviour
 {
@@ -29,12 +30,18 @@ public class UpgradesManager : MonoBehaviour
     public int defTier;
     public int defCost;
 
-    
+    // UI Text
+    public TextMeshProUGUI damageCostText;
+    public TextMeshProUGUI attackSpeedCostText;
+    public TextMeshProUGUI defCostText;
+
+
     void Start()
     {
         damageCost = baseDamageCost;
         attackSpeedCost = baseAttackSpeedCost;
         defCost = baseDefCost;
+        UpdateTexts();
     }
 
     public void UpgradeDamage()
@@ -50,7 +57,9 @@ public class UpgradesManager : MonoBehaviour
         stats.IncreaseDamage(damageGrowth);
 
         damageTier++;
-        damageCost = (int) (baseDamageCost * Mathf.Pow(damageCostMultiplier, damageTier)); 
+        damageCost = (int) (baseDamageCost * Mathf.Pow(damageCostMultiplier, damageTier));
+
+        UpdateTexts();
     }
 
     public void UpgradeAttackSpeed()
@@ -68,6 +77,8 @@ public class UpgradesManager : MonoBehaviour
         attackSpeedTier++;
         attackSpeedCost = (int)(baseAttackSpeedCost * Mathf.Pow(attackSpeedMultiplier, attackSpeedTier));
         attackSpeedGrowth = stats.baseAttackSpeed * Mathf.Pow(attackSpeedGrowthMultiplier, attackSpeedTier);
+
+        UpdateTexts();
     }
 
     public void UpgradeDef()
@@ -84,6 +95,8 @@ public class UpgradesManager : MonoBehaviour
 
         defTier++;
         defCost = (int)(baseDefCost * Mathf.Pow(defMultiplier, defTier));
+
+        UpdateTexts();
     }
 
     private bool HasEnoughMoney(int cost)
@@ -96,5 +109,12 @@ public class UpgradesManager : MonoBehaviour
         {
             return false;
         }
+    }
+
+    public void UpdateTexts()
+    {
+        damageCostText.text = "$" + damageCost;
+        attackSpeedCostText.text = "$" + attackSpeedCost;
+        defCostText.text = "$" + defCost;
     }
 }

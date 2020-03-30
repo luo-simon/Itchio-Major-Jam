@@ -36,6 +36,12 @@ public class StatsManager : MonoBehaviour
         UpdateStatsAll();
     }
 
+    public void TakeDamage(int amount)
+    {
+        currentDef -= amount;
+        UpdateTexts();
+    }
+
     public void AddMoney(int amount)
     {
         money += amount;

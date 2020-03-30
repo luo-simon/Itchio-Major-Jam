@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -17,6 +18,10 @@ public class EnemyManager : MonoBehaviour
     public bool hasReachedWall = false;
     public GameObject deathParticles;
 
+    // Universal attack speeds
+    public float startAttackCd = 1f;
+    private float attackCd = 0f;
+
     // Rendering
     public Color hitColor;
     private SpriteRenderer sprite;
@@ -26,12 +31,16 @@ public class EnemyManager : MonoBehaviour
     // FX
     private CameraShake cam;
 
+    // Other
+    private StatsManager stats;
+
     void Awake()
     {
         sprite = GetComponent<SpriteRenderer>();
         animator= GetComponent<Animator>();
         anim = GetComponent<Animation>();
         cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraShake>();
+        stats = GameObject.FindGameObjectWithTag("StatsManager").GetComponent<StatsManager>();
         Initialise();
     }
 
@@ -50,6 +59,7 @@ public class EnemyManager : MonoBehaviour
     void Update()
     {
         if (!hasReachedWall) Move();
+        else DamageWall();
 
         if (currentHealth <= 0)
         {
@@ -57,10 +67,24 @@ public class EnemyManager : MonoBehaviour
         }
     }
 
+    private void DamageWall()
+    {
+        if (attackCd <= 0)
+        {
+            stats.TakeDamage(damage);
+            attackCd = startAttackCd;
+        } else
+        {
+            attackCd -= Time.deltaTime;   
+        }
+        
+    }
+
     private void RunDeathSequence()
     {
         // Add money
-        GameObject.FindGameObjectWithTag("StatsManager").GetComponent<StatsManager>().AddMoney(moneyDrop);
+        stats.AddMoney(moneyDrop);
+        stats.enemiesKilled++; stats.UpdateStatsAll();
         Instantiate(deathParticles, transform.position, Quaternion.identity);
         cam.Shake();
         Destroy(gameObject);

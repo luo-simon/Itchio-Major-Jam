@@ -19,5 +19,5 @@ MonoBehaviour:
   moneyDrop: 15
   sprite: {fileID: -5658225943465718842, guid: d6f31673e4cd06d4fbf2ffe2ade0b56d, type: 3}
   waveStart: 2
-  budgetCost: 3
+  budgetCost: 4
   prefab: {fileID: 7929351569266298762, guid: d7f307efd70072443a901f0fd686b39a, type: 3}

@@ -6,9 +6,19 @@ public class GameManager : MonoBehaviour
 {
     private bool paused = false;
     private bool fastForward = false;
+    private bool help = false;
+
+    public GameObject helpPanel;
 
     public float fastForwardTimeScale;
 
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            TogglePause();
+        }
+    }
     public void TogglePause()
     {
         if (paused)
@@ -39,6 +49,20 @@ public class GameManager : MonoBehaviour
             // Turn on fast forward
             Time.timeScale = fastForwardTimeScale;
             fastForward = true;
+        }
+    }
+
+    public void ToggleHelp()
+    {
+        if (help)
+        {
+            helpPanel.SetActive(false);
+            help = false;
+        }
+        else
+        {
+            helpPanel.SetActive(true);
+            help = true;
         }
     }
 }
