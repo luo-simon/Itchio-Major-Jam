@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class SentryController : MonoBehaviour
 {
+    // Systems
+    public StatsManager statsManager;
+
     // Rotation
     private Vector2 mousePos;
     private float angle;
@@ -12,39 +15,38 @@ public class SentryController : MonoBehaviour
     private Vector2 relativePos;
     public float heightFromBottom;
 
-    // Attacking
-    public float attackSpeed;
-    public float damage;
-    [SerializeField] private float attackCd;
+    // Attacking (VALUES SET BY STAT MANAGER)
+    [HideInInspector] public float attackSpeed;
+    [HideInInspector] public float damage;
+    [HideInInspector] public float attackCd;
     [SerializeField] private float currentAttackCd;
+
     public GameObject bullet;
     public Transform aimPos;
+    public GameObject muzzleFlash;
 
     void Start()
     {
         // Rotation
         bottomOfScreen = new Vector2(Screen.width / 2, heightFromBottom);
-
-        // Attacking
-        attackCd = 1 / attackSpeed;
-        currentAttackCd = attackCd;
     }
 
     void Update()
     {
         if (Input.mousePosition.y > heightFromBottom) RotateSentry();
 
-        if (Input.mousePosition.y > 100f) MouseInput();
+        if (Input.mousePosition.y > Screen.height / 5) MouseInput();
 
         if (currentAttackCd > 0) currentAttackCd -= Time.deltaTime;
     }
 
     void Shoot()
     {
-        Debug.Log("Shoot!");
         if (currentAttackCd <= 0)
         {
-            Instantiate(bullet, aimPos.position, Quaternion.Euler(transform.eulerAngles));
+            GameObject bulletClone = Instantiate(bullet, aimPos.position, Quaternion.Euler(transform.eulerAngles));
+            bulletClone.GetComponent<Bullet>().damage = damage;
+            Instantiate(muzzleFlash, aimPos.position, Quaternion.Euler(transform.eulerAngles));
             currentAttackCd = attackCd;
         }
     }

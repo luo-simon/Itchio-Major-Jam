@@ -4,24 +4,47 @@ using UnityEngine;
 
 public class EnemyManager : MonoBehaviour
 {
-    public int maxHealth;
-    private int currentHealth;
-
-    public float moveSpeed;
-    public int damage;
-
-    public int moneyDrop = 10;
+    public EnemyType enemy;
+    
+    // Set by scriptable object
+    [HideInInspector] public float maxHealth;
+    [SerializeField ] private float currentHealth;
+    [HideInInspector] public float moveSpeed;
+    [HideInInspector] public int damage;
+    [HideInInspector] public int moneyDrop = 10;
+    [HideInInspector] public int budgetCost;
 
     public bool hasReachedWall = false;
+    public GameObject deathParticles;
 
     // Rendering
     public Color hitColor;
     private SpriteRenderer sprite;
+    private Animator animator;
+    private Animation anim;
 
-    void Start()
+    // FX
+    private CameraShake cam;
+
+    void Awake()
     {
-        currentHealth = maxHealth;
         sprite = GetComponent<SpriteRenderer>();
+        animator= GetComponent<Animator>();
+        anim = GetComponent<Animation>();
+        cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraShake>();
+        Initialise();
+    }
+
+    void Initialise()
+    {
+        maxHealth = enemy.maxHealth;
+        moveSpeed = enemy.moveSpeed;
+        damage = enemy.damage;
+        moneyDrop = enemy.moneyDrop;
+        sprite.sprite = enemy.sprite;
+        budgetCost = enemy.budgetCost;
+
+        currentHealth = maxHealth;
     }
 
     void Update()
@@ -30,8 +53,17 @@ public class EnemyManager : MonoBehaviour
 
         if (currentHealth <= 0)
         {
-            Destroy(gameObject);
+            RunDeathSequence();
         }
+    }
+
+    private void RunDeathSequence()
+    {
+        // Add money
+        GameObject.FindGameObjectWithTag("StatsManager").GetComponent<StatsManager>().AddMoney(moneyDrop);
+        Instantiate(deathParticles, transform.position, Quaternion.identity);
+        cam.Shake();
+        Destroy(gameObject);
     }
 
     private void Move()
@@ -42,7 +74,7 @@ public class EnemyManager : MonoBehaviour
             hasReachedWall = true;
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(float damage)
     {
         StartCoroutine("Flash");
         currentHealth -= damage;

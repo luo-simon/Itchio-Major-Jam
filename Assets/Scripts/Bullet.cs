@@ -7,8 +7,9 @@ public class Bullet : MonoBehaviour
 {
     public float bulletSpeed;
 
-    public int damage = 1;
+    public GameObject bulletImpact;
 
+    [HideInInspector] public float damage = 1f;
 
 
     void Update()
@@ -19,14 +20,12 @@ public class Bullet : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Bullet collision...");
-
         if (other.CompareTag("Enemy"))
         {
-            Debug.Log("Hit enemy");
             other.GetComponent<EnemyManager>().TakeDamage(damage);
-
         }
+
+        Instantiate(bulletImpact, transform.position, Quaternion.identity);
 
         Destroy(gameObject);
     }

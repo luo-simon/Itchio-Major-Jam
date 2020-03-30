@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1cfae7e671fabb449f4a5f9db5340a8, type: 3}
+  m_Name: Dark Skeleton
+  m_EditorClassIdentifier: 
+  PrefabName: Dark Skeleton
+  maxHealth: 4
+  moveSpeed: 1.5
+  damage: 2
+  moneyDrop: 20
+  sprite: {fileID: -5658225943465718842, guid: d6f31673e4cd06d4fbf2ffe2ade0b56d, type: 3}
+  waveStart: 5
+  budgetCost: 4
+  prefab: {fileID: 7929351569266298762, guid: 5b4e98a1211573f4abec35ba9fe53e7e, type: 3}
