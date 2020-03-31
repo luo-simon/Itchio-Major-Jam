@@ -66,7 +66,7 @@ public class WaveManager : MonoBehaviour
 
                     int cost = enemySpawn.GetComponent<EnemyManager>().budgetCost;
                     budgetSpent += cost;
-                    timeToNextSpawn = UnityEngine.Random.Range(spawnCd, spawnCd + spawnInterval) * Mathf.Pow(0.85f, wave / (i + 1f));
+                    timeToNextSpawn = UnityEngine.Random.Range(spawnCd, spawnCd + spawnInterval) * Mathf.Pow(0.8f, wave / (i + 1f));
                 }
             } else
             {

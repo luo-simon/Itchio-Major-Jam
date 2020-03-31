@@ -18,6 +18,6 @@ MonoBehaviour:
   damage: 10
   moneyDrop: 200
   sprite: {fileID: 1605796440420607178, guid: 1fe316dde4e06484286e1629c20c5633, type: 3}
-  waveStart: 24
+  waveStart: 20
   budgetCost: 50
   prefab: {fileID: 7929351569266298762, guid: 8474aed600f994f40a6bfca70e7c7960, type: 3}

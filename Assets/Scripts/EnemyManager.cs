@@ -109,7 +109,7 @@ public class EnemyManager : MonoBehaviour
     {
         // Add money
         stats.AddMoney(moneyDrop);
-        stats.enemiesKilled++; stats.UpdateStatsAll();
+        if (!start) { stats.enemiesKilled++; stats.UpdateStatsAll(); } 
         Instantiate(deathParticles, transform.position, Quaternion.identity);
         cam.Shake();
 
