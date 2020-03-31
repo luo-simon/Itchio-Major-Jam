@@ -2,29 +2,40 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.Rendering.PostProcessing;
+using System;
 
 public class StatsManager : MonoBehaviour
 {
+    [Header("Object References")]
     public SentryController sentry;
     public UpgradesManager upgrades;
 
-    public int maxDef;
-    [HideInInspector] public int currentDef;
-    public TextMeshProUGUI defText;
 
+
+    [Header("Damage")]
     public float baseDamage;
     [HideInInspector] public float damage;
 
+    [Header("Attack Speed")]
     public float baseAttackSpeed;
     [HideInInspector] public float attackSpeed;
 
-    public TextMeshProUGUI statsText;
+    [Header("Defense")]
+    public int maxDef;
+    [HideInInspector] public int currentDef;
 
+    [Header("Other Stats")]
     public int enemiesKilled;
-    public TextMeshProUGUI enemiesKilledText;
-
     public int money;
+
+    [Header("UI/FX References")]
+    public TextMeshProUGUI statsText;
+    public TextMeshProUGUI defText;
     public TextMeshProUGUI moneyText;
+    public TextMeshProUGUI enemiesKilledText;
+    public PostProcessVolume flashRed;
+    public GameObject GameOverPanel;
 
     void Start()
     {
@@ -39,8 +50,38 @@ public class StatsManager : MonoBehaviour
     public void TakeDamage(int amount)
     {
         currentDef -= amount;
+        StartCoroutine("FlashRed");
         UpdateTexts();
+
+        checkIfDead();
     }
+
+    private void checkIfDead()
+    {
+        if (currentDef <= 0)
+        {
+            // No more defense - player has lost
+            GameOverPanel.SetActive(true);
+        }
+    }
+
+    IEnumerator FlashRed()
+    {
+        for (float weight = 0; weight < 1; weight += 0.2f)
+        {
+            flashRed.weight = weight;
+            yield return null;
+        }
+
+        yield return new WaitForSeconds(0.1f);
+
+        for (float weight = 1; weight > 0; weight -= 0.1f)
+        {
+            flashRed.weight = weight;
+            yield return null;
+        }
+    }
+    
 
     public void AddMoney(int amount)
     {

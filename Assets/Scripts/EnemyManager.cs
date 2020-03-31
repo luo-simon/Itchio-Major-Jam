@@ -18,20 +18,26 @@ public class EnemyManager : MonoBehaviour
     public bool hasReachedWall = false;
     public GameObject deathParticles;
 
-    // Universal attack speeds
+    [Header("Universal Enemy Attack Settings")]
     public float startAttackCd = 1f;
-    private float attackCd = 0f;
+    private float attackCd = 1f;
+    public bool selfDestruct = false;
 
-    // Rendering
+    [Header("Rendering Settings")]
     public Color hitColor;
     private SpriteRenderer sprite;
     private Animator animator;
     private Animation anim;
 
-    // FX
-    private CameraShake cam;
+    [Header("Menu Button Settings")]
+    public bool start = false;
+    public GameObject menuUIPanel;
+    public GameObject gameUIPanel;
+    public GameObject waveManager;
 
-    // Other
+    [Header("Other")]
+    private AudioSource audioSource;
+    private CameraShake cam;
     private StatsManager stats;
 
     void Awake()
@@ -41,7 +47,18 @@ public class EnemyManager : MonoBehaviour
         anim = GetComponent<Animation>();
         cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraShake>();
         stats = GameObject.FindGameObjectWithTag("StatsManager").GetComponent<StatsManager>();
-        Initialise();
+        audioSource = GetComponent<AudioSource>();
+        if (!start) Initialise();
+        else InitialiseMenuButton();
+    }
+
+    private void InitialiseMenuButton()
+    {
+        maxHealth = 1;
+        moveSpeed = 0f;
+        moneyDrop = 0;
+
+        currentHealth = maxHealth;
     }
 
     void Initialise()
@@ -69,6 +86,8 @@ public class EnemyManager : MonoBehaviour
 
     private void DamageWall()
     {
+        if (selfDestruct) SelfDestruct();
+
         if (attackCd <= 0)
         {
             stats.TakeDamage(damage);
@@ -80,6 +99,12 @@ public class EnemyManager : MonoBehaviour
         
     }
 
+    private void SelfDestruct()
+    {
+        stats.TakeDamage(damage);
+        RunDeathSequence();
+    }
+
     private void RunDeathSequence()
     {
         // Add money
@@ -87,6 +112,15 @@ public class EnemyManager : MonoBehaviour
         stats.enemiesKilled++; stats.UpdateStatsAll();
         Instantiate(deathParticles, transform.position, Quaternion.identity);
         cam.Shake();
+
+        if (start)
+        {
+            menuUIPanel.SetActive(false);
+            gameUIPanel.SetActive(true);
+            waveManager.SetActive(true);
+
+        }
+
         Destroy(gameObject);
     }
 
@@ -100,6 +134,7 @@ public class EnemyManager : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
+        audioSource.Play();
         StartCoroutine("Flash");
         currentHealth -= damage;
     }

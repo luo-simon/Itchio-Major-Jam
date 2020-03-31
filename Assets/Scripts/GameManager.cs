@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class GameManager : MonoBehaviour
 {
     private bool paused = false;
@@ -12,6 +13,14 @@ public class GameManager : MonoBehaviour
 
     public float fastForwardTimeScale;
 
+    [Header("Audio")]
+    public AudioSource audioSource;
+
+    void Start()
+    {
+        Time.timeScale = 1f;
+    }
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
@@ -21,6 +30,8 @@ public class GameManager : MonoBehaviour
     }
     public void TogglePause()
     {
+        audioSource.Play();
+
         if (paused)
         {
             // Unpause
@@ -37,6 +48,8 @@ public class GameManager : MonoBehaviour
 
     public void ToggleFastForward()
     {
+        audioSource.Play();
+
         if (fastForward)
         {
             // Turn off fast forward
@@ -54,6 +67,8 @@ public class GameManager : MonoBehaviour
 
     public void ToggleHelp()
     {
+        audioSource.Play();
+
         if (help)
         {
             helpPanel.SetActive(false);

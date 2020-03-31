@@ -2,27 +2,37 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEditor;
 
 public class UpgradesManager : MonoBehaviour
 {
+    [Header("StatsManager Reference")]
     public StatsManager stats;
+
+    [Header("Sentry Tier")]
+    public int evolveCostT2;
+    public int evolveCostT3;
 
     // Price = BaseCost * Multiplier ^ (number of times upgraded)
     // Set in editor
+    [Header("Damage Settings")]
     public int baseDamageCost;
     public float damageCostMultiplier;
     public float damageGrowth;
 
+    [Header("Attack Speed Settings")]
     public int baseAttackSpeedCost;
     public float attackSpeedMultiplier;
     public float attackSpeedGrowth;
     public float attackSpeedGrowthMultiplier;
 
+    [Header("Defense Settings")]
     public int baseDefCost;
     public float defMultiplier;
     public float defGrowth;
 
-    // Changed in code
+    [Header("Runtime Values")]
+    public int sentryTier;
     public int damageTier;
     public int damageCost;
     public int attackSpeedTier;
@@ -30,10 +40,19 @@ public class UpgradesManager : MonoBehaviour
     public int defTier;
     public int defCost;
 
-    // UI Text
+    [Header("Text UIs")]
     public TextMeshProUGUI damageCostText;
     public TextMeshProUGUI attackSpeedCostText;
     public TextMeshProUGUI defCostText;
+    public TextMeshProUGUI moreStats;
+    public TextMeshProUGUI sentryTierCostText;
+    public TextMeshProUGUI sentryTierText;
+
+    [Header("Audio")]
+    public AudioSource audioSource;
+    public AudioClip buy;
+    public AudioClip error;
+    public AudioClip evolve;
 
 
     void Start()
@@ -41,6 +60,27 @@ public class UpgradesManager : MonoBehaviour
         damageCost = baseDamageCost;
         attackSpeedCost = baseAttackSpeedCost;
         defCost = baseDefCost;
+        sentryTier = stats.sentry.currentTier;
+        UpdateTexts();
+    }
+
+    public void UpgradeTier()
+    {
+        // Check if enough money
+        if (!HasEnoughMoney(evolveCostT2))
+        {
+            Debug.Log("Not enough money");
+            return;
+        }
+
+        audioSource.PlayOneShot(evolve);
+
+        stats.AddMoney(-evolveCostT2);
+        stats.sentry.Evolve();
+
+        sentryTier = stats.sentry.currentTier;
+        evolveCostT2 = evolveCostT3;
+
         UpdateTexts();
     }
 
@@ -72,7 +112,7 @@ public class UpgradesManager : MonoBehaviour
         }
 
         stats.AddMoney(-attackSpeedCost);
-        stats.IncreaseAttackSpeed(attackSpeedGrowth);
+        stats.IncreaseAttackSpeed(attackSpeedGrowth * (sentryTier+1));
 
         attackSpeedTier++;
         attackSpeedCost = (int)(baseAttackSpeedCost * Mathf.Pow(attackSpeedMultiplier, attackSpeedTier));
@@ -103,10 +143,12 @@ public class UpgradesManager : MonoBehaviour
     {
         if (stats.money >= cost)
         {
+            audioSource.PlayOneShot(buy);
             return true;
         }
         else
         {
+            audioSource.PlayOneShot(error);
             return false;
         }
     }
@@ -116,5 +158,8 @@ public class UpgradesManager : MonoBehaviour
         damageCostText.text = "$" + damageCost;
         attackSpeedCostText.text = "$" + attackSpeedCost;
         defCostText.text = "$" + defCost;
+        moreStats.text = "Damage Tier : " + damageTier + "<br>Atk. Speed Tier : " + attackSpeedTier + "<br>Damage/sec: " + Mathf.Round(stats.damage * stats.attackSpeed * 10)/10;
+        sentryTierCostText.text = "$" + evolveCostT2;
+        sentryTierText.text = "Upgrade Tier <br> <i>Current Tier: " + (sentryTier + 1);
     }
 }

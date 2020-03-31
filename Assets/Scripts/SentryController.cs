@@ -5,30 +5,40 @@ using UnityEngine;
 
 public class SentryController : MonoBehaviour
 {
-    // Systems
+    [Header("Stats Reference")]
     public StatsManager statsManager;
 
-    // Rotation
+    [Header("Aim Adjust Settings")]
+    public float heightFromBottom;
     private Vector2 mousePos;
     private float angle;
     private Vector2 bottomOfScreen;
     private Vector2 relativePos;
-    public float heightFromBottom;
 
     // Attacking (VALUES SET BY STAT MANAGER)
     [HideInInspector] public float attackSpeed;
     [HideInInspector] public float damage;
     [HideInInspector] public float attackCd;
-    [SerializeField] private float currentAttackCd;
+    private float currentAttackCd;
 
+    [Header("Object References")]
     public GameObject bullet;
-    public Transform aimPos;
     public GameObject muzzleFlash;
+
+    [Header("Sentry Tiers")]
+    public GameObject[] sentries;
+    public int currentTier;
+
+    [Header("Aim Positions (Runtime)")]
+    public int currentAimPosIndex = 0;
+    public List<Transform> aimPositions = new List<Transform>();
 
     void Start()
     {
+        currentTier = 0;
         // Rotation
         bottomOfScreen = new Vector2(Screen.width / 2, heightFromBottom);
+        UpdateAimPositions(transform.GetChild(0).gameObject);
     }
 
     void Update()
@@ -40,13 +50,54 @@ public class SentryController : MonoBehaviour
         if (currentAttackCd > 0) currentAttackCd -= Time.deltaTime;
     }
 
+    public void Evolve()
+    {
+        // Disable current sentry model
+        transform.GetChild(currentTier).gameObject.SetActive(false);
+        // Increase tier
+        currentTier++;
+        // Enable next sentry model (currentTier has already been incremented)
+        GameObject newSentry = transform.GetChild(currentTier).gameObject;
+        newSentry.SetActive(true);
+        // Update aim positions
+        UpdateAimPositions(newSentry);
+        // Set stats
+        statsManager.IncreaseAttackSpeed(statsManager.attackSpeed * (aimPositions.Count - 1));
+    }
+
+
+    void UpdateAimPositions(GameObject sentry)
+    {
+        aimPositions.Clear();
+        var barrels = sentry.transform.GetChild(0);
+        // Loop through all barrels
+        for (int i = 0; i < barrels.childCount; i++)
+        {
+            aimPositions.Add(barrels.GetChild(i).GetChild(0));
+        }
+    }
+
     void Shoot()
     {
         if (currentAttackCd <= 0)
         {
-            GameObject bulletClone = Instantiate(bullet, aimPos.position, Quaternion.Euler(transform.eulerAngles));
+            // If the current aim position is the final one in the list, then go to 0
+            if (currentAimPosIndex == aimPositions.Count - 1) currentAimPosIndex = 0;
+            else currentAimPosIndex++;
+
+            GameObject bulletClone = Instantiate(bullet, aimPositions[currentAimPosIndex].position, Quaternion.Euler(transform.eulerAngles));
             bulletClone.GetComponent<Bullet>().damage = damage;
-            Instantiate(muzzleFlash, aimPos.position, Quaternion.Euler(transform.eulerAngles));
+            Instantiate(muzzleFlash, aimPositions[currentAimPosIndex].position, Quaternion.Euler(transform.eulerAngles));
+
+            /*
+            foreach (Transform aimPos in aimPositions)
+            {
+                GameObject bulletClone = Instantiate(bullet, aimPos.position, Quaternion.Euler(transform.eulerAngles));
+                bulletClone.GetComponent<Bullet>().damage = damage;
+                Instantiate(muzzleFlash, aimPos.position, Quaternion.Euler(transform.eulerAngles));
+            }
+            */
+
             currentAttackCd = attackCd;
         }
     }
