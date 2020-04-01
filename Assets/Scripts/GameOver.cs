@@ -7,7 +7,7 @@ using TMPro;
 public class GameOver : MonoBehaviour
 {
     public TextMeshProUGUI gameOverText;
-    public WaveManager waveManager;
+    public WaveManager2 waveManager;
     public StatsManager stats;
 
     private bool waiting = true;

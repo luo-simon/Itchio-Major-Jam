@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1cfae7e671fabb449f4a5f9db5340a8, type: 3}
+  m_Name: Boss
+  m_EditorClassIdentifier: 
+  PrefabName: Boss
+  moveSpeed: 1
+  damage: 20
+  maxHealth: 120
+  waveStart: 20
+  budgetCost: 60
+  moneyDrop: 200
+  sprite: {fileID: 1605796440420607178, guid: 1fe316dde4e06484286e1629c20c5633, type: 3}
+  prefab: {fileID: 6301687161436962211, guid: 871ea4577ca12c14c99a0ab9eecfbbd4, type: 3}

@@ -105,8 +105,12 @@ public class WaveManager2 : MonoBehaviour
             {
                 // Add to available enemies list
                 availableEnemies.Add(enemy);
+                // If the length of list is 5 (it should max be 4) then delete first element
+                if (availableEnemies.Count >= 5) availableEnemies.RemoveAt(0);
             }
         }
+
+            
     }
 
     private void UpdateSpawnValues()

@@ -15,7 +15,7 @@ MonoBehaviour:
   PrefabName: Dragon
   moveSpeed: 1.6
   damage: 10
-  maxHealth: 20
+  maxHealth: 26
   waveStart: 16
   budgetCost: 12
   moneyDrop: 200

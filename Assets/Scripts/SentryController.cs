@@ -14,6 +14,7 @@ public class SentryController : MonoBehaviour
     private float angle;
     private Vector2 bottomOfScreen;
     private Vector2 relativePos;
+    public float rotSpeed = 15f;
 
     // Attacking (VALUES SET BY STAT MANAGER)
     [HideInInspector] public float attackSpeed;
@@ -120,7 +121,7 @@ public class SentryController : MonoBehaviour
 
         var rotation = Quaternion.Euler(0, angle, 0);
 
-        transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * 10f);
+        transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * rotSpeed);
         //transform.eulerAngles = new Vector3(0, currentAngle, 0);
     }
 

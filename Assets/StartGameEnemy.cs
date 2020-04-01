@@ -13,7 +13,7 @@ public class StartGameEnemy : MonoBehaviour
     public GameManager gameManager;
 
     [Header("Options")]
-    public bool hardModeStart;
+    public int difficulty;
 
     public void StartGame()
     {
@@ -22,17 +22,8 @@ public class StartGameEnemy : MonoBehaviour
         audioSource.Play();
         Instantiate(deathParticles, transform.position, Quaternion.identity);
 
-        if (hardModeStart)
-        {
-            // Start in hard more
-            Debug.Log("Starting: HARD");
-            gameManager.StartGameHard();
-        } else
-        {
-            // Start in normal mode
-            Debug.Log("Starting: NORMAL");
-            gameManager.StartGameEasy();
-        }
+        Debug.Log("Starting: with difficulty " + difficulty);
+        gameManager.StartGameWithDifficulty(difficulty);
 
         // Destroy both "StartGameEnemy" enemies;
         Destroy(transform.parent.gameObject);

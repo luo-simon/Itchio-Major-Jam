@@ -23,6 +23,7 @@ public class UpgradesManager2 : MonoBehaviour
     public int baseAttackSpeedCost;
     public float attackSpeedCostIncrease;
     public float attackSpeedGrowth;
+    public int attackSpeedMaxTier = 15;
 
     [Header("Defense Settings")]
     public int baseDefCost;
@@ -110,8 +111,6 @@ public class UpgradesManager2 : MonoBehaviour
             return;
         }
 
-       
-
         // Return if already at max
         if (sentryTier >= 2)
         {
@@ -159,11 +158,18 @@ public class UpgradesManager2 : MonoBehaviour
             return;
         }
 
-        stats.AddMoney(-attackSpeedCost);
-        stats.IncreaseAttackSpeed(attackSpeedGrowth * (sentryTier + 1));
+        if (attackSpeedTier >= attackSpeedMaxTier)
+        {
+            return;
+        }
+        else
+        {
+            stats.AddMoney(-attackSpeedCost);
+            stats.IncreaseAttackSpeed(attackSpeedGrowth * (sentryTier + 1));
 
-        attackSpeedTier++;
-        attackSpeedCost = (int)(attackSpeedCostIncrease * attackSpeedTier + baseAttackSpeedCost);
+            attackSpeedTier++;
+            attackSpeedCost = (int)(attackSpeedCostIncrease * attackSpeedTier + baseAttackSpeedCost);
+        }
 
         UpdateTexts();
     }
@@ -203,10 +209,14 @@ public class UpgradesManager2 : MonoBehaviour
     public void UpdateTexts()
     {
         damageCostText.text = "$" + damageCost;
-        attackSpeedCostText.text = "$" + attackSpeedCost;
+        
         defCostText.text = "$" + defCost;
         moreStats.text = "Damage Tier : " + damageTier + "<br>Atk. Speed Tier : " + attackSpeedTier + "<br>Damage/sec: " + Mathf.Round(stats.damage * stats.attackSpeed * 10) / 10;
         sentryTierText.text = "Upgrade Tier <br> <i>Current Tier: " + (sentryTier + 1);
+
+        if (attackSpeedTier >= attackSpeedMaxTier) attackSpeedCostText.text = "MAX";
+        else attackSpeedCostText.text = "$" + attackSpeedCost;
+
         if (sentryTier >= 2)
         {
             sentryTierCostText.text = "MAX";

@@ -49,15 +49,11 @@ public class EnemyManager : MonoBehaviour
     {
         // sprite.sprite = enemy.sprite;
         
-        /*
-        maxHealth = enemy.maxHealth;
-        moneyDrop = enemy.moneyDrop;
-        */
-        // V2
-        maxHealth = enemy.budgetCost;
+        // MATCHES MONEY DROP TO BUDGET COST (change later if needed)
         moneyDrop = enemy.budgetCost;
-        // End
+        // ^^^
 
+        maxHealth = enemy.maxHealth;
         moveSpeed = enemy.moveSpeed;
         damage = enemy.damage;
         budgetCost = enemy.budgetCost;
