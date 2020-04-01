@@ -15,7 +15,7 @@ MonoBehaviour:
   PrefabName: Wizard
   moveSpeed: 2
   damage: 3
-  maxHealth: 13
+  maxHealth: 14
   waveStart: 13
   budgetCost: 10
   moneyDrop: 30

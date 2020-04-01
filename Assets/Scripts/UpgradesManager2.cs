@@ -52,6 +52,7 @@ public class UpgradesManager2 : MonoBehaviour
     public AudioClip error;
     public AudioClip evolve;
 
+    private bool waiting = false;
 
     void Start()
     {
@@ -60,6 +61,44 @@ public class UpgradesManager2 : MonoBehaviour
         defCost = baseDefCost;
         sentryTier = stats.sentry.currentTier;
         UpdateTexts();
+    }
+
+    void Update()
+    {
+        if (waiting) return;
+        // Upgrade Hotkeys
+        if (Input.GetKey(KeyCode.Q))
+        {
+            // Upgrade DEFENSE button
+            UpgradeDef();
+            waiting = true;
+            // Wait for 0.1 secs before getting keyboard input
+            Invoke("ResetWaiting", 0.5f);
+        }
+        if (Input.GetKey(KeyCode.W))
+        {
+            // Upgrade AS button
+            UpgradeAttackSpeed();
+            waiting = true;
+            // Wait for 0.1 secs before getting keyboard input
+            Invoke("ResetWaiting", 0.5f);
+        }
+        if (Input.GetKey(KeyCode.E))
+        {
+            // Upgrade DAMAGE button
+            UpgradeDamage();
+            waiting = true;
+            // Wait for 0.1 secs before getting keyboard input
+            Invoke("ResetWaiting", 0.5f);
+        }
+
+        
+        
+    }
+
+    private void ResetWaiting()
+    {
+        waiting = false;
     }
 
     public void UpgradeTier()
