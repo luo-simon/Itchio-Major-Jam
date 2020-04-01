@@ -911,7 +911,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: I'm confused
+  m_text: First time?
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: cbeb01258a6cfa9428a38109c672ab21, type: 2}
   m_sharedMaterial: {fileID: -4961634479535601104, guid: cbeb01258a6cfa9428a38109c672ab21,
@@ -981,7 +981,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 124315931}
-    characterCount: 12
+    characterCount: 11
     spriteCount: 0
     spaceCount: 1
     wordCount: 2
@@ -1774,13 +1774,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 219479237}
-  m_LocalRotation: {x: -0.15093216, y: -0.24777359, z: 0.03911044, w: -0.9561894}
-  m_LocalPosition: {x: 1.5, y: 0.5, z: 2.2}
+  m_LocalRotation: {x: -0.15366223, y: -0.23392047, z: 0.03746957, w: -0.9593046}
+  m_LocalPosition: {x: 1.4, y: 0.5, z: 2.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 645943875}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: -129.321, z: 0}
+  m_LocalEulerAnglesHint: {x: 17.94, y: 20, z: 0}
 --- !u!82 &219479239
 AudioSource:
   m_ObjectHideFlags: 0
@@ -5607,8 +5607,8 @@ MonoBehaviour:
   baseDamageCost: 20
   damageCostIncrease: 5
   damageGrowth: 0.5
-  baseAttackSpeedCost: 20
-  attackSpeedCostIncrease: 5
+  baseAttackSpeedCost: 12
+  attackSpeedCostIncrease: 8
   attackSpeedGrowth: 0.2
   baseDefCost: 20
   defCostIncrease: 10
@@ -7629,7 +7629,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 343, y: -64}
+  m_AnchoredPosition: {x: 369, y: -64}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1542119162
@@ -7650,7 +7650,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Lmao normies...
+  m_text: Bring it...
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: cbeb01258a6cfa9428a38109c672ab21, type: 2}
   m_sharedMaterial: {fileID: -4961634479535601104, guid: cbeb01258a6cfa9428a38109c672ab21,
@@ -7720,7 +7720,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 1542119162}
-    characterCount: 15
+    characterCount: 11
     spriteCount: 0
     spaceCount: 1
     wordCount: 2
@@ -9559,8 +9559,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7929351569199709470}
-  m_LocalRotation: {x: -0.15093216, y: 0.2477735, z: -0.039110456, w: -0.9561894}
-  m_LocalPosition: {x: -1.5, y: 0.5, z: 2.2}
+  m_LocalRotation: {x: -0.15366223, y: 0.23392038, z: -0.037469584, w: -0.9593046}
+  m_LocalPosition: {x: -1.4, y: 0.5, z: 2.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 645943875}
