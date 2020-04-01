@@ -23,6 +23,9 @@ public class Bullet : MonoBehaviour
         if (other.CompareTag("Enemy"))
         {
             other.GetComponent<EnemyManager>().TakeDamage(damage);
+        } else if (other.CompareTag("StartGameEnemy"))
+        {
+            other.GetComponent<StartGameEnemy>().StartGame();
         }
 
         Instantiate(bulletImpact, transform.position, Quaternion.identity);

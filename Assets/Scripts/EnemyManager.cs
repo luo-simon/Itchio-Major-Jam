@@ -29,12 +29,6 @@ public class EnemyManager : MonoBehaviour
     private Animator animator;
     private Animation anim;
 
-    [Header("Menu Button Settings")]
-    public bool start = false;
-    public GameObject menuUIPanel;
-    public GameObject gameUIPanel;
-    public GameObject waveManager;
-
     [Header("Other")]
     private AudioSource audioSource;
     private CameraShake cam;
@@ -48,17 +42,7 @@ public class EnemyManager : MonoBehaviour
         cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraShake>();
         stats = GameObject.FindGameObjectWithTag("StatsManager").GetComponent<StatsManager>();
         audioSource = GetComponent<AudioSource>();
-        if (!start) Initialise();
-        else InitialiseMenuButton();
-    }
-
-    private void InitialiseMenuButton()
-    {
-        maxHealth = 1;
-        moveSpeed = 0f;
-        moneyDrop = 0;
-
-        currentHealth = maxHealth;
+        Initialise();
     }
 
     void Initialise()
@@ -117,17 +101,10 @@ public class EnemyManager : MonoBehaviour
     {
         // Add money
         stats.AddMoney(moneyDrop);
-        if (!start) { stats.enemiesKilled++; stats.UpdateStatsAll(); } 
+
+        stats.enemiesKilled++; stats.UpdateStatsAll(); 
         Instantiate(deathParticles, transform.position, Quaternion.identity);
         cam.Shake();
-
-        if (start)
-        {
-            menuUIPanel.SetActive(false);
-            gameUIPanel.SetActive(true);
-            waveManager.SetActive(true);
-
-        }
 
         Destroy(gameObject);
     }
@@ -153,4 +130,6 @@ public class EnemyManager : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
         sprite.color = Color.white;
     }
+
+
 }

@@ -10,12 +10,13 @@ public class EnemyType: ScriptableObject
     [Header("Stats")]
     public float moveSpeed;
     public int damage;
+    public float maxHealth;
 
     [Space]
     public int waveStart;
     public int budgetCost;
 
-    [HideInInspector] public float maxHealth;
+   
     [HideInInspector] public int moneyDrop = 10;
     [HideInInspector] public Sprite sprite;
 

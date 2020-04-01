@@ -19,11 +19,24 @@ public class GameManager : MonoBehaviour
     public GameObject helpPanel;
     public GameObject pausePanel;
 
+    public GameObject menuUIPanel;
+    public GameObject gameUIPanel;
+    public GameObject waveManager;
+
     [Header("Audio")]
     public AudioSource audioSource;
 
     [Header("Developer Mode")]
     public int developerModeSceneIndex = 1;
+
+    [Header("System References")]
+    public WaveManager2 wave;
+    public StatsManager stats;
+
+    [Header("Difficult Options")]
+    public float easyWaveLength = 40f;
+    public float hardWaveLength = 30f;
+    public float hardBaseAS = 0.7f;
 
     void Start()
     {
@@ -36,6 +49,24 @@ public class GameManager : MonoBehaviour
         {
             TogglePause();
         }
+    }
+
+    public void StartGameEasy()
+    {
+        menuUIPanel.SetActive(false);
+        gameUIPanel.SetActive(true);
+        waveManager.SetActive(true);
+        wave.WAVE_LENGTH = easyWaveLength;
+    }
+
+    public void StartGameHard()
+    {
+        menuUIPanel.SetActive(false);
+        gameUIPanel.SetActive(true);
+        waveManager.SetActive(true);
+        wave.WAVE_LENGTH = hardWaveLength;
+        stats.attackSpeed = hardBaseAS;
+        stats.UpdateStatsAll();
     }
 
     public void TogglePause()
