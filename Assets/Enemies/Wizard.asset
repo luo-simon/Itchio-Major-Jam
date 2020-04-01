@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: Wizard
   m_EditorClassIdentifier: 
   PrefabName: Wizard
-  maxHealth: 14
-  moveSpeed: 1
+  moveSpeed: 2
   damage: 3
+  waveStart: 13
+  budgetCost: 10
+  maxHealth: 12
   moneyDrop: 30
   sprite: {fileID: -5658225943465718842, guid: d6f31673e4cd06d4fbf2ffe2ade0b56d, type: 3}
-  waveStart: 15
-  budgetCost: 22
   prefab: {fileID: 7929351569266298762, guid: ef909be2a2a318a48a9a1c575617bdf2, type: 3}

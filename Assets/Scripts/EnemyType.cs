@@ -7,15 +7,18 @@ public class EnemyType: ScriptableObject
 {
     public string PrefabName;
 
-    public float maxHealth;
+    [Header("Stats")]
     public float moveSpeed;
     public int damage;
-    public int moneyDrop = 10;
 
-    public Sprite sprite;
-
+    [Space]
     public int waveStart;
     public int budgetCost;
 
+    [HideInInspector] public float maxHealth;
+    [HideInInspector] public int moneyDrop = 10;
+    [HideInInspector] public Sprite sprite;
+
+    [Header("Prefab")]
     public GameObject prefab;
 }

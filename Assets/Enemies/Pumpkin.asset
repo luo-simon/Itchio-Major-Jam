@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: Pumpkin
   m_EditorClassIdentifier: 
   PrefabName: Pumpkin
-  maxHealth: 3
-  moveSpeed: 1.8
+  maxHealth: 6
+  moveSpeed: 3.6
   damage: 5
   moneyDrop: 20
   sprite: {fileID: -5658225943465718842, guid: d6f31673e4cd06d4fbf2ffe2ade0b56d, type: 3}
-  waveStart: 4
-  budgetCost: 10
+  waveStart: 7
+  budgetCost: 6
   prefab: {fileID: 7929351569266298762, guid: 9c72a41b23c052c458231f47f7c5c419, type: 3}

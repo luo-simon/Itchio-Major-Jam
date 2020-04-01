@@ -6,6 +6,7 @@ using UnityEditor;
 
 public class UpgradesManager : MonoBehaviour
 {
+    /*
     [Header("StatsManager Reference")]
     public StatsManager stats;
 
@@ -139,6 +140,7 @@ public class UpgradesManager : MonoBehaviour
         UpdateTexts();
     }
 
+
     private bool HasEnoughMoney(int cost)
     {
         if (stats.money >= cost)
@@ -161,5 +163,5 @@ public class UpgradesManager : MonoBehaviour
         moreStats.text = "Damage Tier : " + damageTier + "<br>Atk. Speed Tier : " + attackSpeedTier + "<br>Damage/sec: " + Mathf.Round(stats.damage * stats.attackSpeed * 10)/10;
         sentryTierCostText.text = "$" + evolveCostT2;
         sentryTierText.text = "Upgrade Tier <br> <i>Current Tier: " + (sentryTier + 1);
-    }
+    }*/
 }

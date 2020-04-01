@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PrefabName: Dark Skeleton
   maxHealth: 8
-  moveSpeed: 1.2
+  moveSpeed: 2.4
   damage: 2
-  moneyDrop: 20
+  moneyDrop: 8
   sprite: {fileID: -5658225943465718842, guid: d6f31673e4cd06d4fbf2ffe2ade0b56d, type: 3}
-  waveStart: 7
-  budgetCost: 16
+  waveStart: 10
+  budgetCost: 8
   prefab: {fileID: 7929351569266298762, guid: 5b4e98a1211573f4abec35ba9fe53e7e, type: 3}

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PrefabName: Skeleton
   maxHealth: 2
-  moveSpeed: 1
+  moveSpeed: 1.8
   damage: 1
   moneyDrop: 5
   sprite: {fileID: -5658225943465718842, guid: d6f31673e4cd06d4fbf2ffe2ade0b56d, type: 3}

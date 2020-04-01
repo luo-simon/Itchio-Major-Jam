@@ -9,9 +9,6 @@ public class StatsManager : MonoBehaviour
 {
     [Header("Object References")]
     public SentryController sentry;
-    public UpgradesManager upgrades;
-
-
 
     [Header("Damage")]
     public float baseDamage;

@@ -63,11 +63,19 @@ public class EnemyManager : MonoBehaviour
 
     void Initialise()
     {
+        // sprite.sprite = enemy.sprite;
+        
+        /*
         maxHealth = enemy.maxHealth;
+        moneyDrop = enemy.moneyDrop;
+        */
+        // V2
+        maxHealth = enemy.budgetCost;
+        moneyDrop = enemy.budgetCost;
+        // End
+
         moveSpeed = enemy.moveSpeed;
         damage = enemy.damage;
-        moneyDrop = enemy.moneyDrop;
-        sprite.sprite = enemy.sprite;
         budgetCost = enemy.budgetCost;
 
         currentHealth = maxHealth;
